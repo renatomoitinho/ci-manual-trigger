@@ -11,6 +11,7 @@ on:
          - LION
          - HIPPO
          - PANDA
+         - ALL
 jobs:
   check-application:
     runs-on: ubuntu-latest
@@ -26,25 +27,28 @@ jobs:
     steps:
     
     - name: Job to <<RHINO>>
+      if: ${{ github.event.inputs.choice == 'RHINO' || github.event.inputs.choice == 'ALL' }}
       run: |
-        echo "Completed job 2, but triggering failure"
         echo "Log level: $NAMESPACE"
       env:
         NAMESPACE: "RHINO"
 
     - name: Job to <<LION>>
+      if: ${{ github.event.inputs.choice == 'LION' || github.event.inputs.choice == 'ALL' }}
       run: |
         echo "Log level: $NAMESPACE"
       env:
         NAMESPACE: "LION"
 
     - name: Job to <<HIPPO>>
+      if: ${{ github.event.inputs.choice == 'HIPPO' || github.event.inputs.choice == 'ALL' }}
       run: |
         echo "Log level: $NAMESPACE"
       env:
         NAMESPACE: "HIPPO"
   
     - name: Job to <<PANDA>>
+      if: ${{ github.event.inputs.choice == 'PANDA' || github.event.inputs.choice == 'ALL' }}
       run: |
         echo "Log level: $NAMESPACE"
       env:
