@@ -7,17 +7,45 @@ on:
         type: choice
         description: Make a choice
         options:
-        - NAMESPACE A
-        - NAMESPACE B
-        - NAMESPACE C
-        - NAMESPACE D
+         - RHINO
+         - LION
+         - HIPPO
+         - PANDA
 jobs:
-  build:
+  check-application:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-
       - name: greet
         run: | 
           echo "choice is ${{ github.event.inputs.choice }}"
+  
+  deploy-application:
+    needs: check-application
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Job to <<RHINO>>
+      run: |
+        echo "Completed job 2, but triggering failure"
+        echo "Log level: $NAMESPACE"
+      env:
+        NAMESPACE: "RHINO"
+
+    - name: Job to <<LION>>
+      run: |
+        echo "Log level: $NAMESPACE"
+      env:
+        NAMESPACE: "LION"
+
+    - name: Job to <<HIPPO>>
+      run: |
+        echo "Log level: $NAMESPACE"
+      env:
+        NAMESPACE: "HIPPO"
+  
+    - name: Job to <<PANDA>>
+      run: |
+        echo "Log level: $NAMESPACE"
+      env:
+        NAMESPACE: "PANDA"
