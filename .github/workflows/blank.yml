@@ -1,6 +1,10 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - main
+      
   workflow_dispatch:
     inputs:
       choice:
@@ -22,6 +26,7 @@ jobs:
           echo "choice is ${{ github.event.inputs.choice }}"
   
   deploy-application:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: check-application
     runs-on: ubuntu-latest
     steps:
