@@ -9,19 +9,27 @@ on:
     inputs:
       LION:
         type: boolean
-        description: LION
+        description: 🦁 LION
       RHINO:
         type: boolean
-        description: RHINO
+        description: 🦏 RHINO
+      HIPPO:
+        type: boolean
+        description: 🦛 HIPPO
+      PANDA:
+        type: boolean
+        description: 🐼 HIPPO
+      ALL:
+        type: boolean
+        description: 🐼 HIPPO
       choice:
         type: choice
-        description: Make a choice
+        description: Make a environment
         options:
-         - RHINO
-         - LION
-         - HIPPO
-         - PANDA
-         - ALL
+         - DEV
+         - PROD
+      environment:
+        type: environment
 jobs:
   check-application:
     runs-on: ubuntu-latest
@@ -38,29 +46,33 @@ jobs:
     steps:
     
     - name: Job to <<RHINO>>
-      if: ${{ github.event.inputs.choice == 'RHINO' || github.event.inputs.choice == 'ALL' }}
+      if: ${{  github.event.inputs.RHINO || github.event.inputs.ALL }}
       run: |
-        echo "Log level: $NAMESPACE"
+        echo "Log level: $NAMESPACE, env: $PROFILE"
       env:
         NAMESPACE: "RHINO"
+        PROFILE: "${{ github.event.inputs.choice }}"
 
     - name: Job to <<LION>>
-      if: ${{ github.event.inputs.choice == 'LION' || github.event.inputs.choice == 'ALL' }}
+      if: ${{ github.event.inputs.LION || github.event.inputs.ALL }}
       run: |
-        echo "Log level: $NAMESPACE"
+        echo "Log level: $NAMESPACE, env: $PROFILE"
       env:
         NAMESPACE: "LION"
+        PROFILE: "${{ github.event.inputs.choice }}"
 
     - name: Job to <<HIPPO>>
-      if: ${{ github.event.inputs.choice == 'HIPPO' || github.event.inputs.choice == 'ALL' }}
+      if: ${{ github.event.inputs.HIPPO || github.event.inputs.ALL }}
       run: |
-        echo "Log level: $NAMESPACE"
+        echo "Log level: $NAMESPACE, env: $PROFILE"
       env:
         NAMESPACE: "HIPPO"
+        PROFILE: "${{ github.event.inputs.choice }}"
   
     - name: Job to <<PANDA>>
-      if: ${{ github.event.inputs.choice == 'PANDA' || github.event.inputs.choice == 'ALL' }}
+      if: ${{ github.event.inputs.PANDA || github.event.inputs.ALL }}
       run: |
-        echo "Log level: $NAMESPACE"
+        echo "Log level: $NAMESPACE, env: $PROFILE"
       env:
         NAMESPACE: "PANDA"
+        PROFILE: "${{ github.event.inputs.choice }}"
