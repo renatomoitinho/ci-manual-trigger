@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - main
-      
+on:      
   workflow_dispatch:
     inputs:
       LION:
@@ -13,23 +9,21 @@ on:
       RHINO:
         type: boolean
         description: 🦏 RHINO
-      HIPPO:
+      PIG:
         type: boolean
-        description: 🦛 HIPPO
+        description: 🐷 PIG
       PANDA:
         type: boolean
-        description: 🐼 HIPPO
+        description: 🐼 PANDA
       ALL:
         type: boolean
-        description: 🐼 HIPPO
+        description: ALL
       choice:
         type: choice
         description: Make a environment
         options:
          - DEV
          - PROD
-      environment:
-        type: environment
 jobs:
   check-application:
     runs-on: ubuntu-latest
@@ -61,12 +55,12 @@ jobs:
         NAMESPACE: "LION"
         PROFILE: "${{ github.event.inputs.choice }}"
 
-    - name: Job to <<HIPPO>>
-      if: ${{ github.event.inputs.HIPPO || github.event.inputs.ALL }}
+    - name: Job to <<PIG>>
+      if: ${{ github.event.inputs.PIG || github.event.inputs.ALL }}
       run: |
         echo "Log level: $NAMESPACE, env: $PROFILE"
       env:
-        NAMESPACE: "HIPPO"
+        NAMESPACE: "PIG"
         PROFILE: "${{ github.event.inputs.choice }}"
   
     - name: Job to <<PANDA>>
