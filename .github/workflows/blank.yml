@@ -24,6 +24,9 @@ on:
         options:
          - DEV
          - PROD
+      docs:
+        type: file
+        description: test documentation
 jobs:
   check-application:
     runs-on: ubuntu-latest
